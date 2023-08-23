@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 
@@ -91,24 +91,26 @@ function redirectToFirstVariant({product, request}) {
 export default function Product() {
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
+  const [showLogo, setShowLogo] = useState(false);
   return (
     <div className="product">
-      <ProductImage image={selectedVariant?.image} />
+      <ProductImage image={selectedVariant?.image} showLogo={showLogo} />
       <ProductMain
         selectedVariant={selectedVariant}
         product={product}
         variants={variants}
       />
+      <button className='p-2 border-black flex justify-center items-center bg-black text-white' onClick={() => setShowLogo(!showLogo)}>Add Logo</button>
     </div>
   );
 }
 
-function ProductImage({image}) {
+function ProductImage({image, showLogo}) {
   if (!image) {
     return <div className="product-image" />;
   }
   return (
-    <div className="product-image">
+    <div className="product-image relative">
       <Image
         alt={image.altText || 'Product Image'}
         aspectRatio="1/1"
@@ -116,6 +118,12 @@ function ProductImage({image}) {
         key={image.id}
         sizes="(min-width: 45em) 50vw, 100vw"
       />
+      {showLogo && (
+        <img 
+        src='/peace.png' 
+        style={{width: '100px', height: '100px'}}
+        className="absolute top-[33%] left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+      )}
     </div>
   );
 }

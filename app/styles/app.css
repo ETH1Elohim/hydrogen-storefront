@@ -402,6 +402,12 @@ aside li {
   width: 100%;
 }
 
+.product-image .logo-image {
+  width: 40px;
+  height: 40px;
+}
+
+
 .product-main {
   align-self: start;
   position: sticky;
