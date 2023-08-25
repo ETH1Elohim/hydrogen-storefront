@@ -92,6 +92,7 @@ export default function Product() {
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
   const [showLogo, setShowLogo] = useState(false);
+
   return (
     <div className="product">
       <ProductImage image={selectedVariant?.image} showLogo={showLogo} />
@@ -100,7 +101,10 @@ export default function Product() {
         product={product}
         variants={variants}
       />
-      <button className='p-2 border-black flex justify-center items-center bg-black text-white' onClick={() => setShowLogo(!showLogo)}>Add Logo</button>
+      {/* Put in memory */}
+      {(product.id === "gid://shopify/Product/7982902771734") && (
+        <button className='p-2 border-black flex justify-center items-center bg-black text-white' onClick={() => setShowLogo(!showLogo)}>Add Logo</button>
+      )}
     </div>
   );
 }
